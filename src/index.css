@@ -1,0 +1,2 @@
+/* Shared box sizing. Page styling is in App.css. */
+* { box-sizing: border-box; }

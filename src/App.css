@@ -1,0 +1,341 @@
+/* ========== GENERAL STYLES ========== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 8px;
+    font-family: "Roboto", Arial, sans-serif;
+    font-size: 14px;
+    color: #000000;
+}
+
+/* ========== HEADER STYLES ========== */
+.main-header {
+    height: 42px;
+    background-color: #dc4c3e;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 0 14px 0 42px;
+    border-radius: 7px 7px 0 0;
+}
+
+.menu-button {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    margin-right: 12px;
+    border: none;
+    background: none;
+}
+
+.menu-button img {
+    width: 24px;
+    height: 24px;
+}
+
+.search-box {
+    width: 230px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    padding: 0 9px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.search-box img {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.search-box input::placeholder {
+    color: white;
+}
+
+.task-counter {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.task-counter img {
+    width: 24px;
+    height: 24px;
+}
+
+/* ========== PAGE LAYOUT ========== */
+.page-layout {
+    display: flex;
+    min-height: calc(100vh - 58px);
+}
+
+/* ========== NAVIGATION STYLES ========== */
+.sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    background-color: #fefbf2;
+    padding: 30px 4px 0 34px;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar li a {
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.sidebar li img {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+}
+
+.sidebar .active a {
+    background-color: rgba(255, 255, 255, 0.75);
+    font-weight: bold;
+}
+
+.count {
+    margin-left: 7px;
+    color: #7e7d79;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+/* ========== MAIN CONTENT STYLES ========== */
+.main-content {
+    flex: 1;
+    padding: 37px 56px;
+}
+
+.tasks {
+    max-width: 620px;
+}
+
+.tasks h1 {
+    margin: 0 0 8px;
+    font-size: 20px;
+}
+
+.tasks ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tasks li {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.tasks label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.tasks input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    margin: 0 10px 0 0;
+    border: 1.5px solid #aaaaaa;
+    border-radius: 50%;
+    background-color: white;
+    cursor: pointer;
+}
+
+.tasks input[type="checkbox"]:checked {
+    background-color: #dc4c3e;
+}
+
+/* ========== RESPONSIVE STYLES ========== */
+@media (max-width: 480px) {
+    .main-header {
+        padding: 0 10px;
+    }
+
+    .search-box {
+        flex: 1;
+        width: auto;
+    }
+
+    .task-counter {
+        margin-left: 10px;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        padding: 30px 20px;
+    }
+}
+
+/* ========== TASK CONTROLS ========== */
+.task-filters {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 2px 0 13px;
+}
+
+.filter-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.task-filters button {
+    border: none;
+    padding: 4px 2px;
+    background: transparent;
+    color: #6f6f6f;
+    font: inherit;
+    cursor: pointer;
+}
+
+.task-filters button:hover,
+.task-filters button.selected {
+    color: #dc4c3e;
+}
+
+.task-filters button.selected {
+    font-weight: bold;
+}
+
+.filter-separator {
+    color: #b7b7b7;
+}
+
+.tasks .task-item {
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.task-item label {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 0;
+}
+
+.task-item label span {
+    overflow-wrap: anywhere;
+}
+
+.task-item.completed label span {
+    color: #888888;
+    text-decoration: line-through;
+}
+
+.tasks input[type="checkbox"]:checked::after {
+    content: "✓";
+    display: block;
+    color: #ffffff;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+}
+
+.task-item:hover {
+    background-color: #fafafa;
+}
+
+.delete-task {
+    border: none;
+    border-radius: 3px;
+    padding: 3px 8px;
+    background: transparent;
+    color: #999999;
+    font-size: 21px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.delete-task:hover,
+.delete-task:focus-visible {
+    background: #fbe9e7;
+    color: #dc4c3e;
+}
+
+.task-form {
+    display: flex;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.task-form input {
+    min-width: 0;
+    flex: 1;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    padding: 9px 11px;
+    font: inherit;
+}
+
+.task-form input:focus {
+    border-color: #dc4c3e;
+    outline: 1px solid #dc4c3e;
+}
+
+.task-form button {
+    border: 1px solid #dc4c3e;
+    border-radius: 4px;
+    padding: 8px 13px;
+    background: #dc4c3e;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+}
+
+.task-form button:hover {
+    background: #c83e31;
+}
+
+.task-form button:active {
+    background: #ad3529;
+}
+
+.empty-message {
+    padding: 16px 0;
+    color: #777777;
+}
+
+.menu-button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.sidebar li:not(.active) a:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 480px) {
+    .task-form {
+        flex-wrap: wrap;
+    }
+}
