@@ -5,11 +5,9 @@ function TaskForm({ onAdd }) {
 
   function handleSubmit(event) {
     event.preventDefault()
+    if (text.trim() === '') return
 
-    const trimmedText = text.trim()
-    if (!trimmedText) return
-
-    onAdd(trimmedText)
+    onAdd(text.trim())
     setText('')
   }
 

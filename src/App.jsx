@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import TaskList from './components/TaskList.jsx'
 import TaskForm from './components/TaskForm.jsx'
 import TaskCounter from './components/TaskCounter.jsx'
@@ -14,35 +14,35 @@ const startingTasks = [
   { id: 2, text: 'Buy the new issue of Scientific American', completed: false },
   { id: 3, text: 'Return the textbook to Josie', completed: false },
   { id: 4, text: 'Buy the new album by Rake', completed: false },
-  { id: 5, text: 'Buy a gift card for Dad', completed: false },
+  { id: 5, text: 'Buy a gift card for Dad', completed: false }
 ]
 
 function App() {
   const [tasks, setTasks] = useState(startingTasks)
   const [filter, setFilter] = useState('All')
-  const nextId = useRef(6)
 
   function addTask(text) {
-    const id = nextId.current
-    nextId.current += 1
-    setTasks(currentTasks => [
-      ...currentTasks,
-      { id, text, completed: false },
-    ])
+    setTasks(previousTasks => {
+      const lastId = Math.max(0, ...previousTasks.map(task => task.id))
+      return [...previousTasks, { id: lastId + 1, text: text, completed: false }]
+    })
   }
 
   function toggleTask(id) {
-    setTasks(currentTasks => currentTasks.map(task =>
-      task.id === id ? { ...task, completed: !task.completed } : task
-    ))
+    setTasks(previousTasks => previousTasks.map(task => {
+      if (task.id === id) {
+        return { ...task, completed: !task.completed }
+      }
+      return task
+    }))
   }
 
   function deleteTask(id) {
-    setTasks(currentTasks => currentTasks.filter(task => task.id !== id))
+    setTasks(previousTasks => previousTasks.filter(task => task.id !== id))
   }
 
   const completedCount = tasks.filter(task => task.completed).length
-  const visibleTasks = tasks.filter(task => {
+  const filteredTasks = tasks.filter(task => {
     if (filter === 'Active') return !task.completed
     if (filter === 'Completed') return task.completed
     return true
@@ -51,23 +51,21 @@ function App() {
   return (
     <>
       <header className="main-header">
-        <button className="menu-button" type="button" aria-label="Menu">
-          <img src={menuIcon} alt="" />
+        <button className="menu-button" type="button">
+          <img src={menuIcon} alt="Menu" />
         </button>
-
         <div className="search-box">
           <img src={searchIcon} alt="" />
           <input type="text" placeholder="Quick find" aria-label="Quick find" />
         </div>
-
         <TaskCounter total={tasks.length} completed={completedCount} />
       </header>
 
       <div className="page-layout">
-        <nav className="sidebar" aria-label="Main navigation">
+        <nav className="sidebar">
           <ul>
             <li className="active">
-              <a href="#inbox" aria-current="page">
+              <a href="#inbox">
                 <img src={inboxIcon} alt="" />
                 Inbox <span className="count">{tasks.length}</span>
               </a>
@@ -88,30 +86,16 @@ function App() {
         </nav>
 
         <main className="main-content" id="inbox">
-          <section className="tasks" aria-labelledby="inbox-heading">
-            <h1 id="inbox-heading">Inbox</h1>
-
-            <div className="task-filters" aria-label="Filter tasks">
-              {['All', 'Active', 'Completed'].map((option, index) => (
-                <span className="filter-option" key={option}>
-                  {index > 0 && <span className="filter-separator" aria-hidden="true">|</span>}
-                  <button
-                    type="button"
-                    className={filter === option ? 'selected' : ''}
-                    aria-pressed={filter === option}
-                    onClick={() => setFilter(option)}
-                  >
-                    {option}
-                  </button>
-                </span>
-              ))}
+          <section className="tasks">
+            <h1>Inbox</h1>
+            <div className="task-filters">
+              <button type="button" className={filter === 'All' ? 'selected' : ''} onClick={() => setFilter('All')}>All</button>
+              <span>|</span>
+              <button type="button" className={filter === 'Active' ? 'selected' : ''} onClick={() => setFilter('Active')}>Active</button>
+              <span>|</span>
+              <button type="button" className={filter === 'Completed' ? 'selected' : ''} onClick={() => setFilter('Completed')}>Completed</button>
             </div>
-
-            <TaskList
-              tasks={visibleTasks}
-              onToggle={toggleTask}
-              onDelete={deleteTask}
-            />
+            <TaskList tasks={filteredTasks} onToggle={toggleTask} onDelete={deleteTask} />
             <TaskForm onAdd={addTask} />
           </section>
         </main>

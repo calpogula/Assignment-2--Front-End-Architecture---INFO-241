@@ -2,9 +2,9 @@ import checkIcon from '../assets/check_icon.png'
 
 function TaskCounter({ total, completed }) {
   return (
-    <p className="task-counter" aria-label={`${total} tasks, ${completed} completed`}>
+    <p className="task-counter">
       <img src={checkIcon} alt="" />
-      <span>{total} / {completed}</span>
+      {total} / {completed}
     </p>
   )
 }
