@@ -3,8 +3,13 @@
     box-sizing: border-box;
 }
 
+html {
+    background-color: #ffffff;
+}
+
 body {
     margin: 8px;
+    background-color: #ffffff;
     font-family: "Roboto", Arial, sans-serif;
     font-size: 14px;
     color: #000000;
